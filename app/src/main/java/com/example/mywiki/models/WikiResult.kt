@@ -1,4 +1,6 @@
 package com.example.mywiki.models
 
-class WikiResult {
+class WikiResult
+{
+    val query: WikiQueryData? = null
 }

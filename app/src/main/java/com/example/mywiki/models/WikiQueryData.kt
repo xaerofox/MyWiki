@@ -1,4 +1,6 @@
 package com.example.mywiki.models
 
-class WikiQueryData {
+class WikiQueryData
+{
+    val pages: ArrayList<WikiPage> = ArrayList()
 }

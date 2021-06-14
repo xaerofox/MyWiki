@@ -7,12 +7,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mywiki.R
+import com.example.mywiki.adapters.ArticleListItemRecyclerAdapter
 import com.example.mywiki.databinding.ActivitySearchBinding
+import com.example.mywiki.models.WikiResult
+import com.example.mywiki.providers.ArticleDataProvider
 
 class SearchActivity : AppCompatActivity()
 {
     private lateinit var binding: ActivitySearchBinding
+    private var adapter: ArticleListItemRecyclerAdapter = ArticleListItemRecyclerAdapter()
+    private val articleProvider: ArticleDataProvider = ArticleDataProvider()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -22,6 +28,9 @@ class SearchActivity : AppCompatActivity()
 
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        binding.searchResultsRecycler.layoutManager = LinearLayoutManager(this)
+        binding.searchResultsRecycler.adapter = adapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
@@ -50,7 +59,15 @@ class SearchActivity : AppCompatActivity()
                 override fun onQueryTextSubmit(query: String?): Boolean
                 {
                     // do the search and update the elements
-                    println("updated search")
+                    if (query != null)
+                    {
+                        articleProvider.search(query, 0, 20) { wikiResult ->
+                            adapter.currentResults.clear()
+                            wikiResult.query?.pages?.let { adapter.currentResults.addAll(it) }
+                            runOnUiThread{ adapter.notifyDataSetChanged() }
+                        }
+                        println("updated search")
+                    }
 
                     return false
                 }

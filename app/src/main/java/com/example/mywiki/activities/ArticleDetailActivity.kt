@@ -29,9 +29,12 @@ class ArticleDetailActivity : AppCompatActivity()
         currentPage = Gson().fromJson<WikiPage>(wikiPageJson, WikiPage::class.java)
         binding.articleDetailWebview?.webViewClient = object : WebViewClient() {
 
-            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean
             {
-                return true
+                return super.shouldOverrideUrlLoading(view, request)
             }
         }
 

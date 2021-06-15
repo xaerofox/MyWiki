@@ -29,7 +29,7 @@ class ExploreFragment : Fragment()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View?
+    ): View
     {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
 
@@ -41,7 +41,7 @@ class ExploreFragment : Fragment()
         binding.exploreArticleRecycler.layoutManager = LinearLayoutManager(context)
         binding.exploreArticleRecycler.adapter = adapter
 
-        binding.refresher?.setOnRefreshListener {
+        binding.refresher.setOnRefreshListener {
             getRandomArticles()
         }
 
@@ -59,7 +59,7 @@ class ExploreFragment : Fragment()
 
     private fun getRandomArticles()
     {
-        binding.refresher?.isRefreshing = true
+        binding.refresher.isRefreshing = true
 
         try
         {
@@ -69,7 +69,7 @@ class ExploreFragment : Fragment()
                 adapter.currentResults.addAll(wikiResult.query!!.pages)
                 activity?.runOnUiThread {
                     adapter.notifyDataSetChanged()
-                    binding.refresher?.isRefreshing = false
+                    binding.refresher.isRefreshing = false
                 }
             }
         } catch (ex: Exception)
@@ -77,7 +77,7 @@ class ExploreFragment : Fragment()
             //show alert
             val builder = AlertDialog.Builder(activity)
             builder.setMessage(ex.message).setTitle("oops!")
-            var dialog = builder.create()
+            val dialog = builder.create()
             dialog.create()
         }
     }

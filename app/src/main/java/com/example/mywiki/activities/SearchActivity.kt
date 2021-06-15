@@ -49,13 +49,11 @@ class SearchActivity : AppCompatActivity()
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = searchItem!!.actionView as SearchView
 
-        with(searchView)
-        {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            setIconifiedByDefault(false)
-            requestFocus()
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            searchView.setIconifiedByDefault(false)
+            searchView.requestFocus()
 
-            setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean
                 {
                     // do the search and update the elements
@@ -77,7 +75,6 @@ class SearchActivity : AppCompatActivity()
                     return false
                 }
             })
-        }
 
         return super.onCreateOptionsMenu(menu)
     }

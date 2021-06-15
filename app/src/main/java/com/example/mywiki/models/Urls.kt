@@ -14,9 +14,9 @@ object Urls
                 "&gpslimit=$take" +
                 "&gpsoffset=$skip" +
                 "&prop=pageimages|info" +
-                "piprop=thumbnail|url" +
-                "pithumbsize=200" +
-                "pilimit=$take" +
+                "&piprop=thumbnail|url" +
+                "&pithumbsize=200" +
+                "&pilimit=$take" +
                 "&wbptterms=description" +
                 "&format=json" +
                 "&inprop=url"
